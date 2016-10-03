@@ -115,11 +115,11 @@ function * main () {
   for (const m of pendingMigrations) {
     if (func === 'up') {
       console.log(` - applying ${m.name}...`)
-      yield m.up.bind(migrationCtx)
+      yield m.up.bind(migrationCtx)()
       yield migrationCollection.updateOne({ _id: 'default' }, { migId: m.id }, { upsert: true })
     } else {
       console.log(` - reverting ${m.name}...`)
-      yield m.down.bind(migrationCtx)
+      yield m.down.bind(migrationCtx)()
       yield migrationCollection.updateOne({ _id: 'default' }, { migId: m.id - 1 }, { upsert: true })
     }
     console.log(`   done ${m.name}!`)
