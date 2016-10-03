@@ -17,7 +17,7 @@ const requireDir = require('require-dir')
 const pkg = require('./package.json')
 
 function loadMigrations () {
-  const allMigrations = requireDir('./migrations')
+  const allMigrations = requireDir(`${process.cwd()}./migrations`)
   const migrationIdRe = /^([\d]+)/
 
   let idSet = new Set()
