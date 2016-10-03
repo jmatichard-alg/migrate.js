@@ -1,0 +1,21 @@
+{
+  "name": "migrate.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "migrate.js",
+  "bin": {
+    "migrate.js": "./migrate.js"
+  },
+  "keywords": [],
+  "author": "Clement Jacob <clems71@gmail.com>",
+  "repository": "https://github.com/clems71/migrate.js.git",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "co": "^4.6.0",
+    "docopt": "^0.6.2",
+    "lodash": "^4.16.2",
+    "mongodb": "^2.2.10",
+    "require-dir": "^0.3.0"
+  }
+}
