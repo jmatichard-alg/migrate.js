@@ -25,7 +25,27 @@ The CLI tool is available as migrate.js. Simply execute it from your base projec
 
 Create a folder named `migrations` in your project and store your migration files here. The files should be named with the following pattern : `xxxx-this-is-an-updater.js`.
 
-### Example migration file
+### Example migration file (v2)
+
+```js
+// 0001-add-new-field.js
+
+exports.up = async function() {
+  await this.updateCollection('products', async function(doc) {
+    doc.newField = 'this is the extra field'
+    return doc
+  })
+}
+
+exports.down = async function() {
+  await this.updateCollection('products', async function(doc) {
+    delete doc.newField
+    return doc
+  })
+}
+```
+
+### Example migration file (v1 - deprecated)
 
 ```js
 // 0001-add-new-field.js
@@ -43,4 +63,31 @@ exports.down = function * () {
     return doc
   })
 }
+```
+
+
+## Usage
+
+### CLI
+```
+Usage:
+  migrate.js up <host> <port> <db> [--dry-run]
+  migrate.js down <host> <port> <db> <version> [--dry-run]
+  migrate.js -h | --help | --version
+```
+
+### Programmatic
+```js
+const migrate = require('migrate.js');
+
+const defaultOpts = {
+  func: 'up',     // ['up', 'down']
+  version: 1,     // migrate down to this revision (used only if func === 'down')
+  host: null,
+  port: 27017,
+  database: null,
+  dryRun: false   // show which migrations would be applied, without running it
+}
+
+await migrate(defaultOpts);
 ```
